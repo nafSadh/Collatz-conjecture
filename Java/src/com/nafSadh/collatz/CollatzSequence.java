@@ -1,3 +1,5 @@
+package com.nafSadh.collatz;
+
 import java.util.ArrayList;
 import java.util.List;
 
