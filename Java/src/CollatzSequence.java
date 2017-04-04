@@ -6,8 +6,13 @@ import java.util.List;
  *
  * @author kmostafa
  */
-public class CollatzConjecture {
+public class CollatzSequence {
 	
+	/**
+	 * Computes the next number in Collatz sequence
+	 * @param n current number
+	 * @return next number in Collatz sequence
+	 */
 	public long next(long n) {
 		return (n & 1) == 0
 		       ? n / 2
@@ -16,14 +21,27 @@ public class CollatzConjecture {
 	
 	private int minimumSteps = 3;
 	
-	public CollatzConjecture(int minimumSteps) {
+	/**
+	 * @param minimumSteps minimum steps to compute in the sequence, default is 3
+	 */
+	public CollatzSequence(int minimumSteps) {
 		this.minimumSteps = minimumSteps;
 	}
 	
-	public CollatzConjecture() { }
+	/**
+	 * Creates an object with minimumSteps defaulted to 3
+	 */
+	public CollatzSequence() { }
 	
-	public SequenceInfo getSequenceInfo(long n, int minStep) {
-		SequenceInfo info = new SequenceInfo(n);
+	/**
+	 * Generates a sequence starting at n
+	 * @param n initial value
+	 * @param minStep minimum steps before sequence stops
+	 * @return an object containing the generated sequence, steps, stepsThroughOddNumber, peak
+	 * and initial value
+	 */
+	public Info getSequenceInfo(long n, int minStep) {
+		Info info = new Info(n);
 		minStep--;
 		info.steps = 0;
 		info.stepsThroughOddNumber = 1;
@@ -39,14 +57,31 @@ public class CollatzConjecture {
 		return info;
 	}
 	
-	public SequenceInfo getSequenceInfo(long n) {
+	/**
+	 * Generates a sequence starting at n
+	 * @param n initial value
+	 * @return an object containing the generated sequence, steps, stepsThroughOddNumber, peak
+	 * and initial valu
+	 */
+	public Info getSequenceInfo(long n) {
 		return this.getSequenceInfo(n, minimumSteps);
 	}
 	
+	/**
+	 * Generates a sequence starting at n and ending at 1
+	 * @param n initial value
+	 * @param minStep minimum steps before sequence stops
+	 * @return a list containing the sequence
+	 */
 	public List<Long> getSequenceToOne(long n, int minStep) {
 		return getSequenceInfo(n, minStep).sequence;
 	}
 	
+	/**
+	 * Generates a sequence starting at n and ending at 1, no minimum steps
+	 * @param n initial value
+	 * @return a list containing the sequence
+	 */
 	public List<Long> getSequenceToOne(long n) {
 		List<Long> list = new ArrayList<>();
 		while (n != 1) {
@@ -57,20 +92,23 @@ public class CollatzConjecture {
 		return list;
 	}
 	
-	public static class SequenceInfo {
+	/**
+	 * Contains info about a Collatz sequence
+	 */
+	public static class Info {
 		long initial;
 		long steps;
 		long stepsThroughOddNumber;
 		long peak;
 		List<Long> sequence = new ArrayList<>();
 		
-		public SequenceInfo(long initial) {
+		public Info(long initial) {
 			this.initial = initial;
 		}
 		
 		@Override
 		public String toString() {
-			return "CollatzConjecture.SequenceInfo{" +
+			return "CollatzSequence.Info{" +
 					"initial =" + getInitial() +
 					", steps=" + getSteps() +
 					", stepsThroughOddNumber=" + getStepsThroughOddNumber() +
@@ -78,6 +116,7 @@ public class CollatzConjecture {
 					"\nsequence=" + getSequence() +
 					'}';
 		}
+		
 		
 		public long getInitial() {
 			return initial;
@@ -105,10 +144,10 @@ public class CollatzConjecture {
 	}
 	
 	public static void main(String[] args) {
-		CollatzConjecture collatzConjecture = new CollatzConjecture();
-		System.out.println(collatzConjecture.getSequenceInfo(27, 3));
+		CollatzSequence collatzSequence = new CollatzSequence();
+		System.out.println(collatzSequence.getSequenceInfo(27, 3));
 		for (int i = -10; i < 1; i++) {
-			System.out.println(collatzConjecture.getSequenceInfo(i));
+			System.out.println(collatzSequence.getSequenceInfo(i));
 		}
 		
 	}
